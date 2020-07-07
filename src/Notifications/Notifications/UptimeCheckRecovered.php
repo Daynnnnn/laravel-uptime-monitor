@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
+use NotificationChannels\Twilio\TwilioChannel;
+use NotificationChannels\Twilio\TwilioSmsMessage;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered as MonitorRecoveredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
@@ -47,6 +49,14 @@ class UptimeCheckRecovered extends BaseNotification
                     ->footer($this->getLocationDescription())
                     ->timestamp(Carbon::now());
             });
+    }
+
+    public function toTwilio($notifiable)
+    {
+        {
+            return (new TwilioSmsMessage())
+                ->content($this->getMessageText());
+        }
     }
 
     public function getMonitorProperties($extraProperties = []): array

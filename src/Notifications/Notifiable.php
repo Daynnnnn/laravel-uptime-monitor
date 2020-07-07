@@ -24,6 +24,14 @@ class Notifiable
         return config('uptime-monitor.notifications.slack.webhook_url');
     }
 
+    /**
+     * @return string|null
+     */
+    public function routeNotificationForTwilio()
+    {
+        return config('uptime-monitor.notifications.twilio.to');
+    }
+
     public function getKey(): string
     {
         return static::class;

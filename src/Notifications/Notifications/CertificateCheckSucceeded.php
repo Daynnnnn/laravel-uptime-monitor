@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
+use NotificationChannels\Twilio\TwilioChannel;
+use NotificationChannels\Twilio\TwilioSmsMessage;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded as ValidCertificateFoundEvent;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
@@ -44,6 +46,14 @@ class CertificateCheckSucceeded extends BaseNotification
                     ->footer($this->getMonitor()->certificate_issuer)
                     ->timestamp(Carbon::now());
             });
+    }
+
+    public function toTwilio($notifiable)
+    {
+        {
+            return (new TwilioSmsMessage())
+                ->content($this->getMessageText());
+        }
     }
 
     public function setEvent(ValidCertificateFoundEvent $event)

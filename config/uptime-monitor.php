@@ -38,6 +38,13 @@ return [
             'webhook_url' => env('UPTIME_MONITOR_SLACK_WEBHOOK_URL'),
         ],
 
+        'twilio' => [
+            'to' => env('TWILIO_TO'),
+            'from' => env('TWILIO_FROM'),
+            'sid' => env('TWILIO_SID'),
+            'token' => env('TWILIO_TOKEN'),
+        ],
+
         /*
          * Here you can specify the notifiable to which the notifications should be sent. The default
          * notifiable will use the variables specified in this config file.
